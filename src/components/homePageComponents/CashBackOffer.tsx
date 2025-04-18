@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Card } from "@/components/ui/card";
 import {
   Carousel,
@@ -8,96 +7,46 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-
 import SectionHeading from "../shared/SectionHeading";
-import MONDOfarm from "../../assets/smallimage.png";
-interface CardData {
-  id: number;
-  logosrc: string;
-  title: string;
-  discount: string;
-}
-
-const cardsItems: CardData[] = [
-  {
-    id: 1,
-    logosrc: MONDOfarm,
-    title: "MONDOfarms",
-    discount: "Flat 30% Cashback",
-  },
-  {
-    id: 2,
-    logosrc: MONDOfarm,
-    title: "MONDOfarms",
-    discount: "Flat 30% Cashback",
-  },
-  {
-    id: 3,
-    logosrc: MONDOfarm,
-    title: "MONDOfarms",
-    discount: "Flat 30% Cashback",
-  },
-  {
-    id: 4,
-    logosrc: MONDOfarm,
-    title: "MONDOfarms",
-    discount: "Flat 30% Cashback",
-  },
-  {
-    id: 5,
-    logosrc: MONDOfarm,
-    title: "MONDOfarms",
-    discount: "Flat 30% Cashback",
-  },
-  {
-    id: 6,
-    logosrc: MONDOfarm,
-    title: "MONDOfarms",
-    discount: "Flat 30% Cashback",
-  },
-  {
-    id: 7,
-    logosrc: MONDOfarm,
-    title: "MONDOfarms",
-    discount: "Flat 30% Cashback",
-  },
-];
+import { cardsItems } from "@/constants/CashBack";
 
 const CashBackOffer: React.FC = () => {
   return (
-    <div className="mt-10 w-[99%] sm:w-[90%] mx-auto">
+    <div className="mt-6 w-[95%] mx-auto sm:mt-10 sm:w-[90%]">
       <SectionHeading heading="High Cashback Offer" />
 
-      <div>
+      <div className="mt-4">
         <Carousel
-          // opts={{
-          //   align: "center",
-          // }}
-          className="w-full "
+          opts={{
+            dragFree: true,
+            containScroll: "trimSnaps",
+          }}
+          className="w-full"
         >
-          <CarouselContent className="flex">
+          <CarouselContent className="-ml-1">
             {cardsItems.map((item, index) => (
-              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/4">
-                <div className="p-1 w-max">
-                  <Card className="w-max">
-                    <div
-                      key={item.id}
-                      className="w-[360px]  rounded-[8px] py-8 px-7 shadow-custom flex flex-col items-start justify-between gap-2 "
-                    >
-                      <div className="flex justify-between items-center gap-8">
-                        <div className="flex items-center justify-center ">
+              <CarouselItem
+                key={index}
+                className="pl-1 basis-3/4 sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
+              >
+                <div className="p-1 h-full">
+                  <Card className="h-full overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                    <div className="w-full h-full min-w-[220px] max-w-[380px] mx-auto rounded-lg p-4 sm:p-6 shadow-custom flex flex-col gap-4 sm:gap-6 bg-white">
+                      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
+                        <div className="flex-shrink-0">
                           <img
                             src={item.logosrc}
                             alt="Company Logo"
-                            className="max-w-[120px] max-h-[120px] object-cover"
+                            className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain"
+                            loading="lazy"
                           />
                         </div>
 
-                        <div className="flex flex-col items-center justify-center gap-8">
-                          <h2 className="font-[Poppins] leading-[36px] text-[24px] font-semibold">
+                        <div className="flex flex-col items-center text-center gap-3 sm:gap-4">
+                          <h2 className="font-poppins text-lg sm:text-xl md:text-2xl font-semibold leading-tight">
                             {item.title}
                           </h2>
-                          <button className="bg-[#68FFA5] rounded-sm text-left py-2 px-8">
+                          <button className="bg-[#68FFA5] hover:bg-[#54e891] rounded-md py-2 px-5 sm:py-2 sm:px-6 text-sm sm:text-base font-medium transition-colors">
                             {item.discount}
                           </button>
                         </div>
@@ -108,8 +57,8 @@ const CashBackOffer: React.FC = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden sm:block" />
-          <CarouselNext className="hidden sm:block" />
+          <CarouselPrevious className="hidden sm:flex size-8" />
+          <CarouselNext className="hidden sm:flex size-8" />
         </Carousel>
       </div>
     </div>
