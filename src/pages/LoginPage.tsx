@@ -6,10 +6,10 @@ import PasswordField from "../components/shared/PasswordField";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
-import CircularProgress from "@mui/material/CircularProgress";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { API_URL } from "@/api";
+import { Loader2 } from "lucide-react";
 
 type Inputs = {
   useremail: string;
@@ -28,13 +28,11 @@ const LoginPage: React.FC = () => {
   const [isLoading, setLoading] = useState(false);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
     setLoading(true);
     try {
       const response = await axios.post(`${API_URL}/users/login`, data, {
         withCredentials: true,
       });
-      console.log("Response", response);
 
       if (response.status === 200) {
         toast.success(`${response.data.message}`);
@@ -124,7 +122,7 @@ const LoginPage: React.FC = () => {
                 disabled={isSubmitting}
               >
                 {isLoading ? (
-                  <CircularProgress size={30} thickness={4} value={100} />
+                  <Loader2 className="animate-spin text-white mx-auto" />
                 ) : (
                   "Log in"
                 )}

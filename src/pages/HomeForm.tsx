@@ -3,16 +3,16 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { FaUser } from "react-icons/fa"; // Import black user icon
 import { useNavigate } from "react-router-dom";
-import CircularProgress from "@mui/material/CircularProgress";
 import { toast } from "react-toastify";
 import { API_URL } from "@/api";
+import { Loader2 } from "lucide-react";
 type FormData = {
   firstName: string;
   middleName: string;
   lastName: string;
   gender: string;
   houseNo: number;
-  city: string;
+  citytownvillage: string;
   district: string;
   state: string;
   country: string;
@@ -34,9 +34,8 @@ const AddressForm: React.FC = () => {
       const response = await axios.post(`${API_URL}/users/updateuser`, data, {
         withCredentials: true,
       });
-      console.log(response);
-      navigate("/homepage", { replace: true });
       if (response.status === 200) {
+        navigate("/homepage", { replace: true });
         toast.success(`User data save successfully`);
       } else if (response.status == 205) {
         // alert("");
@@ -214,10 +213,10 @@ const AddressForm: React.FC = () => {
                 City/Town/Village
               </label>
               <Controller
-                name="city"
+                name="citytownvillage"
                 control={control}
                 defaultValue=""
-                rules={{ required: "City is required" }}
+                rules={{ required: "citytownvillage is required" }}
                 render={({ field }) => (
                   <input
                     id="city"
@@ -228,8 +227,8 @@ const AddressForm: React.FC = () => {
                   />
                 )}
               />
-              {errors.city && (
-                <p className="text-red-500 text-sm">{errors.city?.message}</p>
+              {errors.citytownvillage && (
+                <p className="text-red-500 text-sm">{errors.citytownvillage?.message}</p>
               )}
             </div>
 
@@ -331,7 +330,7 @@ const AddressForm: React.FC = () => {
               disabled={isSubmitting}
             >
               {isLoading ? (
-                <CircularProgress size={30} thickness={4} value={100} />
+                <Loader2 className="animate-spin text-white" />
               ) : (
                 "Submit"
               )}
