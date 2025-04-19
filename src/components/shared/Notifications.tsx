@@ -47,11 +47,6 @@ const initialNotifications: Notification[] = [
 export function Notifications() {
     const [notifications, setNotifications] = useState<Notification[]>(initialNotifications);
     const [length, setLength] = useState<number>(0);
-    useEffect(() => {
-        setNotifications((prev) =>
-            [...prev].sort((a, b) => Number(b.isActive) - Number(a.isActive))
-        );
-    }, [notifications]);
 
     const handleDismiss = (id: string) => {
         setNotifications((prev) =>
@@ -69,8 +64,7 @@ export function Notifications() {
             <MenubarMenu>
                 <MenubarTrigger className="p-0 border-none hover:bg-transparent focus:bg-transparent">
                     <div>
-                        <button
-                            type="button"
+                        <div
                             style={{ color: "black" }}
                             className="relative text-xl rounded-full p-3 hover:bg-light-gray"
                         >
@@ -83,7 +77,7 @@ export function Notifications() {
                                 >{length < 10 ? length : '9+'}</span>
                             </div>}
                             {<RiNotification3Line className="w-8 h-8 navBarWidth:w-6 navBarWidth:h-6" />}
-                        </button>
+                        </div>
                     </div>
                 </MenubarTrigger>
                 <MenubarContent className="w-80 max-h-96 overflow-y-auto shadow-lg rounded-lg">

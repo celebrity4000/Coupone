@@ -4,7 +4,6 @@ import Progress from "@/components/shared/Progress";
 import CouponeUsagePricing from "@/components/shared/CouponeUsagePricing";
 import CouponeValidityDetails from "@/components/shared/CouponeValidityDetails";
 import Footer from "@/components/shared/Footer";
-import Navbar from "@/components/shared/Navbar";
 import ProductReviewForm from "@/components/shared/ProductReviewForm";
 import ReviewList from "@/components/shared/ReviewList";
 import amazon from "../assets/amazon.png";
@@ -20,7 +19,6 @@ const AmazonPage: React.FC = () => {
 
   return (
     <div>
-      <Navbar />
       <AmazonPageHeader />
       <CouponeUsagePricing imagesrc={amazon} />
       <CouponeValidityDetails />

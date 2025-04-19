@@ -1,6 +1,6 @@
 // import React from "react";
 import CountryRounded from "../../assets/CountryRounded.png";
-import { MdKeyboardArrowDown } from "react-icons/md";
+// import { MdKeyboardArrowDown } from "react-icons/md";
 
 const CountryInfo: React.FC = () => {
   return (
@@ -13,7 +13,7 @@ const CountryInfo: React.FC = () => {
       <p>
         <span className=" text-14">Zw</span>{" "}
       </p>
-      <MdKeyboardArrowDown className="text-14" />
+      {/* <MdKeyboardArrowDown className="text-14" /> */}
     </div>
   );
 };

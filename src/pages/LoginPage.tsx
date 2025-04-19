@@ -37,7 +37,7 @@ const LoginPage: React.FC = () => {
       if (response.status === 200) {
         toast.success(`${response.data.message}`);
         // alert("Login successful");
-        navigate("/HomePage", { replace: true });
+        navigate("/homepage", { replace: true });
       } else if (response.status === 203) {
         toast.warn(`Please Verify Your Account!`);
         navigate("/changeverificationmode");

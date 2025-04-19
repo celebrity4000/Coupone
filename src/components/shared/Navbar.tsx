@@ -2,10 +2,10 @@ import React from "react";
 // import notficationIcon from "../../assets/notificationIcon.png";
 import CountryInfo from "./CountryInfo";
 import { CiSearch } from "react-icons/ci";
-import { MenubarDemo } from "./NavbarNotification";
 import UserInfo from "./UserInfo";
 import { NavLink } from "react-router-dom";
 import { Notifications } from "./Notifications";
+import { UserIcon } from "./UserIcon";
 
 
 
@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
     <>
       <div className="flex justify-center items-center bg-navbarBgColor shadow-custom p-3">
         <div className=" flex justify-between items-center w-full h-[56px]">
-          <NavLink to="/HomePage">
+          <NavLink to="/homepage">
             <div className="font-poppins text-[2em] font-semibold leading-[40px]  decoration-skip-ink-none ml-5">
               Logo
             </div>
@@ -31,8 +31,10 @@ const Navbar: React.FC = () => {
           <div className="profilecontainer flex gap-1 items-center justify-center">
             <Notifications />
 
-            <MenubarDemo element={<CountryInfo />} />
-            <MenubarDemo element={<UserInfo />} />
+            <div className="p-0 border-none hover:bg-transparent focus:bg-transparent">
+              <CountryInfo />
+            </div>
+            <UserIcon element={<UserInfo />} />
           </div>
         </div>
       </div>
