@@ -5,9 +5,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import Inputotp from "../../shared/Inputotp";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
-import CircularProgress from "@mui/material/CircularProgress";
 import { toast } from "react-toastify";
 import { API_URL } from "@/api";
+import { Loader2 } from "lucide-react";
 type Inputs = {
   emailotpfield: string; // Updated type to reflect array structure
 };
@@ -83,7 +83,7 @@ const EmailOtpVerification: React.FC = () => {
                 disabled={isSubmitting}
               >
                 {isLoading ? (
-                  <CircularProgress size={30} thickness={4} value={100} />
+                  <Loader2 className="w-5 h-5 animate-spin text-white mx-auto" />
                 ) : (
                   "Verify OTP"
                 )}
