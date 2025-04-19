@@ -11,7 +11,6 @@ import EmailOtpVerification from "./components/authComponents/otpverification/Em
 import PhoneOtpVerification from "./components/authComponents/otpverification/PhoneOtpVerification";
 import HomeForm from "./pages/HomeForm";
 import HomePage from "./pages/HomePage";
-import AmazonPage from "./pages/AmazonPage";
 import ListPage from "./pages/ListPage";
 import KfcPage from "./pages/KfcPage";
 import DeliveryInformationPage from "./pages/DeliveryInformationPage";
@@ -19,6 +18,7 @@ import { ToastContainer } from "react-toastify";
 import NotFoundPage from "./pages/NotFoundPage";
 import UserInfo from "./pages/UserInfo";
 import Layout from "./Layout";
+import OnlineProducts from "./pages/OnlineProducts";
 
 
 const App: React.FC = () => {
@@ -39,7 +39,7 @@ const App: React.FC = () => {
           <Route path="/homepage" element={<HomePage />} />
           <Route path="/listpage" element={<ListPage />} />
           <Route path="/userinfo" element={<UserInfo />} />
-          <Route path="/amazon" element={<AmazonPage />} />
+          <Route path="/online-products/:id" element={<OnlineProducts />} />
           <Route path="/kfc" element={<KfcPage />} />
 
           <Route path="/delivery" element={<DeliveryInformationPage />} />

@@ -81,7 +81,7 @@ const BestDealsCard: React.FC<CardData> = ({
   const navigate = useNavigate();
   const goToPage = () => {
     console.log(id);
-    navigate("/amazon");
+    navigate(`/online-products/${id}`);
   };
   return (
     <div className="flex flex-col items-center bg-white shadow-custom rounded-[20px] gap-5 w-full max-w-[349px] p-5">

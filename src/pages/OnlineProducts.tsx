@@ -9,7 +9,7 @@ import ReviewList from "@/components/shared/ReviewList";
 import amazon from "../assets/amazon.png";
 import React, { useContext } from "react";
 import UserContext from "../context/UserContext";
-const AmazonPage: React.FC = () => {
+const OnlineProducts: React.FC = () => {
   const context = useContext(UserContext);
   if (!context) {
     throw new Error("Sorry Some error Occurs");
@@ -31,4 +31,4 @@ const AmazonPage: React.FC = () => {
   );
 };
 
-export default AmazonPage;
+export default OnlineProducts;
