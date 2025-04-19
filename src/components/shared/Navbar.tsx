@@ -1,48 +1,15 @@
 import React from "react";
 // import notficationIcon from "../../assets/notificationIcon.png";
 import CountryInfo from "./CountryInfo";
-import { RiNotification3Line } from "react-icons/ri";
 import { CiSearch } from "react-icons/ci";
 import { MenubarDemo } from "./NavbarNotification";
 import UserInfo from "./UserInfo";
 import { NavLink } from "react-router-dom";
+import { Notifications } from "./Notifications";
 
-interface NavButtonProps {
-  icon: React.ReactNode; // For React elements (like <RiNotification3Line />)
-  color: string;
-  dotColor: string;
-  customFunc: () => void; // Function with no arguments and no return value
-}
 
-//  title, customFunc, icon, color, dotColor }
-const NavButton: React.FC<NavButtonProps> = ({
-  icon,
-  color,
-  dotColor,
-  customFunc,
-}) => {
-  return (
-    <div>
-      <button
-        type="button"
-        onClick={() => customFunc()}
-        style={{ color }}
-        className="relative text-xl rounded-full p-3 hover:bg-light-gray"
-      >
-        <span
-          style={{ background: dotColor }}
-          className="absolute inline-flex rounded-full h-2 w-2 right-2 top-2"
-        />
-        {icon}
-      </button>
-    </div>
-  );
-};
+
 const Navbar: React.FC = () => {
-  const handleClick = (name: string) => {
-    console.log(`${name} clicked`);
-  };
-  const currentColor = "black";
   return (
     <>
       <div className="flex justify-center items-center bg-navbarBgColor shadow-custom p-3">
@@ -62,16 +29,7 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="profilecontainer flex gap-1 items-center justify-center">
-            <span>
-              <NavButton
-                dotColor="rgb(254, 201, 15)"
-                customFunc={() => handleClick("notification")}
-                color={currentColor}
-                icon={
-                  <RiNotification3Line className="w-8 h-8 navBarWidth:w-6 navBarWidth:h-6" />
-                }
-              />
-            </span>
+            <Notifications />
 
             <MenubarDemo element={<CountryInfo />} />
             <MenubarDemo element={<UserInfo />} />
