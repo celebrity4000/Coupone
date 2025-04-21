@@ -12,13 +12,13 @@ import PhoneOtpVerification from "./components/authComponents/otpverification/Ph
 import HomeForm from "./pages/HomeForm";
 import HomePage from "./pages/HomePage";
 import ListPage from "./pages/ListPage";
-import KfcPage from "./pages/KfcPage";
 import DeliveryInformationPage from "./pages/DeliveryInformationPage";
 import { ToastContainer } from "react-toastify";
 import NotFoundPage from "./pages/NotFoundPage";
 import UserInfo from "./pages/UserInfo";
 import Layout from "./Layout";
 import OnlineProducts from "./pages/OnlineProducts";
+import OfflineProducts from "./pages/OfflineProducts";
 
 
 const App: React.FC = () => {
@@ -40,7 +40,7 @@ const App: React.FC = () => {
           <Route path="/listpage" element={<ListPage />} />
           <Route path="/userinfo" element={<UserInfo />} />
           <Route path="/online-products/:id" element={<OnlineProducts />} />
-          <Route path="/kfc" element={<KfcPage />} />
+          <Route path="/offline-products/:id" element={<OfflineProducts />} />
 
           <Route path="/delivery" element={<DeliveryInformationPage />} />
           <Route path="/userinfo" element={<UserInfo />} />

@@ -29,7 +29,7 @@ const CouponeValidityDetails: React.FC<CouponeValidityDetailsProps> = ({
             Terms & Conditions:
           </div>
           <ul className="list-disc text-left ml-5 text-[0.6em] md:text-[0.9em] lg:text-[1em]">
-            {terms.map((term, index) => (
+            {terms && terms.map((term, index) => (
               <li key={index}>{term}</li>
             ))}
           </ul>

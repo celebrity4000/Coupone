@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 interface CardData {
   id: number;
   imgsrc: string;
+  type: "online" | "offline";
   discount: string;
   btnTitle: string;
 }
@@ -18,54 +19,63 @@ const cards: CardData[] = [
   {
     id: 0,
     imgsrc: amazon,
+    type: "online",
     discount: "Upto 82% OFF",
     btnTitle: "DETAILS",
   },
   {
     id: 1,
     imgsrc: zikomarke,
+    type: "offline",
     discount: "Upto 82% OFF",
     btnTitle: "DETAILS",
   },
   {
     id: 2,
     imgsrc: spotify,
+    type: "online",
     discount: "Upto 82% OFF",
     btnTitle: "DETAILS",
   },
   {
     id: 3,
     imgsrc: amazon,
+    type: "online",
     discount: "Upto 82% OFF",
     btnTitle: "DETAILS",
   },
   {
     id: 4,
     imgsrc: zikomarke,
+    type: "offline",
     discount: "Upto 82% OFF",
     btnTitle: "DETAILS",
   },
   {
     id: 5,
     imgsrc: spotify,
+    type: "online",
     discount: "Upto 82% OFF",
     btnTitle: "DETAILS",
   },
   {
     id: 6,
     imgsrc: amazon,
+    type: "online",
     discount: "Upto 82% OFF",
     btnTitle: "DETAILS",
   },
   {
     id: 7,
     imgsrc: zikomarke,
+    type: "offline",
     discount: "Upto 82% OFF",
     btnTitle: "DETAILS",
   },
   {
     id: 8,
     imgsrc: spotify,
+    type: "online",
     discount: "Upto 82% OFF",
     btnTitle: "DETAILS",
   },
@@ -75,13 +85,17 @@ const cards: CardData[] = [
 const BestDealsCard: React.FC<CardData> = ({
   id,
   imgsrc,
+  type,
   discount,
   btnTitle,
 }) => {
   const navigate = useNavigate();
   const goToPage = () => {
     console.log(id);
-    navigate(`/online-products/${id}`);
+    if (type === "offline")
+      navigate(`/offline-products/${id}`);
+    else
+      navigate(`/online-products/${id}`);
   };
   return (
     <div className="flex flex-col items-center bg-white shadow-custom rounded-[20px] gap-5 w-full max-w-[349px] p-5">
@@ -135,6 +149,7 @@ const BestDeals: React.FC = () => {
           <BestDealsCard
             key={card.id}
             id={card.id}
+            type={card.type}
             imgsrc={card.imgsrc}
             discount={card.discount}
             btnTitle={card.btnTitle}

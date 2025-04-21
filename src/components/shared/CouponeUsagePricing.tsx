@@ -40,7 +40,7 @@ const CouponeUsagePricing: React.FC<CouponePricingProps> = ({
             <div className="flex-grow flex items-center justify-center">
               <div className="bg-pricingCardGradient rounded-lg p-5 shadow-md w-full">
                 <div className="text-base font-medium tracking-wide leading-6 md:text-base md:leading-8">
-                  <p>Original Price: ${originalPrice.toFixed(2)}</p>
+                  <p>Original Price: {originalPrice && originalPrice.toFixed(2)}</p>
                   <p className="mt-2">
                     Discount: {discountPercentage}% Off <br />
                     <span className="font-light">(with coupon code {couponCode})</span>
