@@ -4,7 +4,6 @@ import CouponeValidityDetails from "@/components/shared/CouponeValidityDetails";
 import Footer from "@/components/shared/Footer";
 import ProductReviewForm from "@/components/shared/ProductReviewForm";
 import ReviewList from "@/components/shared/ReviewList";
-import kfc from "../assets/kfc.png";
 import React, { useContext, useEffect } from "react";
 import UserContext from "../context/UserContext";
 import PageHeader from "@/components/OfflinePageComponents/PageHeader";
