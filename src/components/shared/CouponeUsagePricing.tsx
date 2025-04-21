@@ -1,42 +1,52 @@
 import React from "react";
 
-interface CouponeType {
+interface CouponePricingProps {
   imagesrc: string;
+  originalPrice: number;
+  discountPercentage: number;
+  couponCode: string;
 }
-const CouponeUsagePricing: React.FC<CouponeType> = ({ imagesrc }) => {
+
+const CouponeUsagePricing: React.FC<CouponePricingProps> = ({
+  imagesrc,
+  originalPrice,
+  discountPercentage,
+  couponCode,
+}) => {
+  const savings = (originalPrice * discountPercentage) / 100;
+  const discountedPrice = originalPrice - savings;
+
   return (
-    <div className="mt-20">
-      <div className="bg-[#248D50D4] py-10 px-5">
-        <div className="grid mx-auto items-center grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 max-w-5xl">
+    <div className="mt-10">
+      <div className="bg-[#248D50D4] py-8 px-4 rounded-lg md:py-10 md:px-6">
+        <div className="grid grid-cols-1 gap-6 max-w-4xl mx-auto md:gap-8 md:grid-cols-2">
           {/* Usage Card */}
-          <div className="bg-white rounded-[20px] shadow-custom shadow-[#00000040] p-6 h-auto md:h-[700px]">
-            <h2 className="text-[1.5em]  sm:text-[2em] leading-[40px] font-semibold mb-4">
-              Usage
-            </h2>
-            <div className="w-full !h-[90%] my-auto flex items-center justify-center ">
-              <div className="bg-pricingCardGradient  h-[238px] rounded-[20px] p-4  shadow-custom shadow-[#00000040] w-full flex justify-center items-center object-contain overflow-hidden ">
-                <img src={imagesrc} alt="Amazon" className="object-contain" />
+          <div className="bg-white rounded-lg shadow-md p-5 flex flex-col h-full">
+            <h2 className="text-lg font-semibold mb-4 md:text-xl">Usage</h2>
+            <div className="flex-grow flex items-center justify-center">
+              <div className="bg-pricingCardGradient h-60 rounded-lg p-4 shadow-md w-full flex justify-center items-center overflow-hidden md:h-72">
+                <img
+                  src={imagesrc}
+                  alt="Coupon Usage"
+                  className="object-contain max-h-full max-w-full"
+                />
               </div>
             </div>
           </div>
 
           {/* Pricing Details Card */}
-          <div className="bg-white rounded-[20px] shadow-custom shadow-[#00000040] p-6 h-auto md:h-[700px]">
-            <h2 className=" text-[1.5em]  sm:text-[2em] leading-[40px] block font-semibold mb-4">
-              Pricing Details
-            </h2>
-            <div className="w-full !h-[90%] flex items-center justify-center ">
-              <div className="bg-pricingCardGradient rounded-[20px] p-5  shadow-custom shadow-[#00000040] w-full ">
-                <div className=" text-[1.1em] sm:text-[1.5em] font-normal font-poppins tracking-[0.02em] leading-[60px] md:leading-[100px]">
-                  <p>Original Price: $100.00</p>
-                  <p className="!leading-8">
-                    Discount: 20% Off <br />
-                    <span className="!font-extralight">
-                      (with coupon code SAVE20 )
-                    </span>
+          <div className="bg-white rounded-lg shadow-md p-5 flex flex-col h-full">
+            <h2 className="text-lg font-semibold mb-4 md:text-xl">Pricing Details</h2>
+            <div className="flex-grow flex items-center justify-center">
+              <div className="bg-pricingCardGradient rounded-lg p-5 shadow-md w-full">
+                <div className="text-base font-medium tracking-wide leading-6 md:text-base md:leading-8">
+                  <p>Original Price: ${originalPrice.toFixed(2)}</p>
+                  <p className="mt-2">
+                    Discount: {discountPercentage}% Off <br />
+                    <span className="font-light">(with coupon code {couponCode})</span>
                   </p>
-                  <p>Discounted Price: $80.00</p>
-                  <p>Savings: $20.00</p>
+                  <p className="mt-2">Discounted Price: ${discountedPrice.toFixed(2)}</p>
+                  <p className="mt-2">Savings: ${savings.toFixed(2)}</p>
                 </div>
               </div>
             </div>

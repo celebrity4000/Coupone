@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { useForm, Controller } from "react-hook-form";
 
 type FormData = {
@@ -21,15 +20,13 @@ interface ReviewData {
   email: string;
   terms: boolean;
 }
+
 interface ReviewListProps {
   reviewData: ReviewData[];
   setData: React.Dispatch<React.SetStateAction<ReviewData[]>>;
 }
 
-const ProductReviewForm: React.FC<ReviewListProps> = ({
-  reviewData,
-  setData,
-}) => {
+const ProductReviewForm: React.FC<ReviewListProps> = ({ reviewData, setData }) => {
   const {
     register,
     handleSubmit,
@@ -38,58 +35,43 @@ const ProductReviewForm: React.FC<ReviewListProps> = ({
     formState: { errors },
   } = useForm<FormData>();
 
+  const [hoveredRating, setHoveredRating] = useState(0);
+
   const onSubmit = (data: FormData) => {
-    console.log("Form Submitted", data);
-    const newReview = {
-      email: data.email,
-      nickname: data.nickname,
-      productReview: data.productReview,
-      rating: data.rating,
-      recommend: data.recommend,
-      reviewTitle: data.reviewTitle,
-      terms: data.terms,
+    const newReview: ReviewData = {
+      ...data,
     };
-
-    // Push the new review into the reviewData array
     setData([...reviewData, newReview]);
-
     reset();
   };
 
-  const [hoveredRating, setHoveredRating] = useState(0);
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto relative my-10 z-50">
-      {/* Close Button */}
-      <button
-        className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 focus:outline-none"
-        aria-label="Close"
-      >
-        ✕
-      </button>
+    <div className="bg-white p-4 rounded-xl shadow-md w-full max-w-md mx-auto my-6 relative lg:max-w-xl">
 
-      <h2 className="text-2xl font-semibold mb-4">Overall rating</h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <h2 className="text-xl font-semibold mb-4 text-center md:text-2xl">Submit Your Review</h2>
+
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 text-base">
         {/* Rating */}
         <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Overall rating</label>
           <Controller
             name="rating"
             control={control}
             defaultValue={0}
             rules={{ required: "Please provide a rating." }}
             render={({ field }) => (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-1">
                 {[...Array(5)].map((_, index) => (
                   <span
                     key={index}
-                    className={`cursor-pointer text-3xl border ${
-                      hoveredRating > index || field.value > index
-                        ? "text-yellow-500"
-                        : "text-gray-300"
-                    }`}
-                    onMouseEnter={() => setHoveredRating(index + 1)} // Set hovered rating
-                    onMouseLeave={() => setHoveredRating(0)} // Reset hovered rating
-                    onClick={() => field.onChange(index + 1)} // Update the value on click
+                    className={`cursor-pointer text-2xl ${hoveredRating > index || field.value > index
+                      ? "text-yellow-500"
+                      : "text-gray-300"
+                      }`}
+                    onMouseEnter={() => setHoveredRating(index + 1)}
+                    onMouseLeave={() => setHoveredRating(0)}
+                    onClick={() => field.onChange(index + 1)}
                   >
                     ★
                   </span>
@@ -97,51 +79,37 @@ const ProductReviewForm: React.FC<ReviewListProps> = ({
               </div>
             )}
           />
-          <span className="my-1 text-sm">Click to rate</span>
           {errors.rating && (
-            <p className="text-red-500 text-sm mt-2">
-              Please provide a rating.
-            </p>
+            <p className="text-red-500 text-sm mt-1">{errors.rating.message}</p>
           )}
         </div>
 
         {/* Review Title */}
         <div>
-          <label
-            htmlFor="reviewTitle"
-            className="block text-sm font-bold text-gray-700"
-          >
-            Review title
+          <label htmlFor="reviewTitle" className="block font-medium text-gray-700 mb-1">
+            Review Title
           </label>
           <input
             id="reviewTitle"
             type="text"
             placeholder="Example: Easy to use"
-            {...register("reviewTitle", {
-              required: "Review title is required.",
-            })}
-            className="mt-1 p-2 block w-full border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            {...register("reviewTitle", { required: "Review title is required." })}
+            className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
           />
           {errors.reviewTitle && (
-            <p className="text-red-500 text-sm mt-2">
-              {errors.reviewTitle.message}
-            </p>
+            <p className="text-red-500 text-sm mt-1">{errors.reviewTitle.message}</p>
           )}
         </div>
 
-        {/* Recommendation */}
+        {/* Recommend */}
         <div>
-          <p className="text-sm font-bold text-gray-700">
-            Would you recommend this product to a friend?
-          </p>
-          <div className="flex items-center space-x-4 mt-2">
+          <p className="font-medium text-gray-700 mb-1">Would you recommend this product?</p>
+          <div className="flex space-x-4">
             <label className="inline-flex items-center">
               <input
                 type="radio"
                 value="Yes"
-                {...register("recommend", {
-                  required: "Please select an option.",
-                })}
+                {...register("recommend", { required: "Select an option." })}
                 className="form-radio text-blue-600"
               />
               <span className="ml-2">Yes</span>
@@ -150,51 +118,36 @@ const ProductReviewForm: React.FC<ReviewListProps> = ({
               <input
                 type="radio"
                 value="No"
-                {...register("recommend", {
-                  required: "Please select an option.",
-                })}
+                {...register("recommend", { required: "Select an option." })}
                 className="form-radio text-blue-600"
               />
               <span className="ml-2">No</span>
             </label>
           </div>
           {errors.recommend && (
-            <p className="text-red-500 text-sm mt-2">
-              {errors.recommend.message}
-            </p>
+            <p className="text-red-500 text-sm mt-1">{errors.recommend.message}</p>
           )}
         </div>
 
         {/* Product Review */}
         <div>
-          <label
-            htmlFor="productReview"
-            className="block text-sm font-bold text-gray-700"
-          >
-            Product review
+          <label htmlFor="productReview" className="block font-medium text-gray-700 mb-1">
+            Product Review
           </label>
-          <input
+          <textarea
             id="productReview"
             placeholder="Example: Since I bought this product..."
-            {...register("productReview", {
-              required: "Product review is required.",
-            })}
-            className="mt-1 block w-full p-2 border  rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm h-16"
-            // rows={4}
+            {...register("productReview", { required: "Product review is required." })}
+            className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 h-24"
           />
           {errors.productReview && (
-            <p className="text-red-500 text-sm mt-2">
-              {errors.productReview.message}
-            </p>
+            <p className="text-red-500 text-sm mt-1">{errors.productReview.message}</p>
           )}
         </div>
 
         {/* Nickname */}
         <div>
-          <label
-            htmlFor="nickname"
-            className="block text-sm font-bold text-gray-700 "
-          >
+          <label htmlFor="nickname" className="block font-medium text-gray-700 mb-1">
             Nickname
           </label>
           <input
@@ -202,38 +155,33 @@ const ProductReviewForm: React.FC<ReviewListProps> = ({
             type="text"
             placeholder="Example: bob27"
             {...register("nickname", { required: "Nickname is required." })}
-            className="mt-1 block w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
           />
           {errors.nickname && (
-            <p className="text-red-500 text-sm mt-2">
-              {errors.nickname.message}
-            </p>
+            <p className="text-red-500 text-sm mt-1">{errors.nickname.message}</p>
           )}
         </div>
 
         {/* Email */}
         <div>
-          <label
-            htmlFor="email"
-            className="block text-sm  text-gray-700 font-bold"
-          >
-            Email address (will not be published)
+          <label htmlFor="email" className="block font-medium text-gray-700 mb-1">
+            Email (not published)
           </label>
           <input
             id="email"
             type="email"
-            placeholder="Example: your@email.com"
+            placeholder="your@email.com"
             {...register("email", {
               required: "Email is required.",
               pattern: {
                 value: /^\S+@\S+$/i,
-                message: "Invalid email address.",
+                message: "Invalid email format.",
               },
             })}
-            className="mt-1 block w-full p-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
           />
           {errors.email && (
-            <p className="text-red-500 text-sm mt-2">{errors.email.message}</p>
+            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
           )}
         </div>
 
@@ -241,34 +189,32 @@ const ProductReviewForm: React.FC<ReviewListProps> = ({
         <div className="flex items-start">
           <input
             type="checkbox"
-            id="termsandconditioncheck"
-            {...register("terms", {
-              required: "You must accept the terms and conditions.",
-            })}
-            className="h-4 w-4 text-blue-600 border-gray-300 rounded"
+            id="terms"
+            {...register("terms", { required: "You must accept the terms." })}
+            className="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded"
           />
-          <label
-            className="ml-2 text-sm text-gray-700 font-bold"
-            htmlFor="termsandconditioncheck"
-          >
-            I accept the{" "}
-            <span className=" underline">terms and conditions</span>.
+          <label htmlFor="terms" className="ml-2 text-sm text-gray-700">
+            I accept the <span className="underline">terms and conditions</span>.
           </label>
         </div>
         {errors.terms && (
-          <p className="text-red-500 text-sm mt-2">{errors.terms.message}</p>
+          <p className="text-red-500 text-sm mt-1">{errors.terms.message}</p>
         )}
 
-        <div>
-          You will be able to receive emails in connection with this review (eg if others comment on your review)
+        {/* Info Note */}
+        <div className="text-xs text-gray-600">
+          You may receive email notifications related to this review (e.g., replies).
         </div>
+
         {/* Submit Button */}
-        <button
-          type="submit"
-          className=" bg-black text-white py-2 px-4 rounded-md hover:bg-black-700 "
-        >
-          Submit product review
-        </button>
+        <div className="pt-2">
+          <button
+            type="submit"
+            className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition"
+          >
+            Submit Product Review
+          </button>
+        </div>
       </form>
     </div>
   );
