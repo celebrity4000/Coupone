@@ -8,9 +8,13 @@ import ProductReviewForm from "@/components/shared/ProductReviewForm";
 import ReviewList from "@/components/shared/ReviewList";
 import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../context/UserContext";
+import { useDispatch } from "react-redux";
+import { addProduct } from "@/store/products/productsSlice";
+import { useParams } from "react-router-dom";
 
 
 interface Data {
+  id: string;
   headerImage: string;
   richDescription: string;
   originalPrice: number;
@@ -19,6 +23,7 @@ interface Data {
   expirationDate: string;
   terms: string[];
   reviewData: ReviewData[];
+  couponPrice: number;
 }
 
 interface ReviewData {
@@ -35,17 +40,28 @@ const OnlineProducts: React.FC = () => {
   if (!context) {
     throw new Error("Sorry Some error Occurs");
   }
-  console.log(context);
+
+  const { id } = useParams<{ id: string }>();
+
   const { reviewData, setReviewData } = context.AmazonData;
   const [data, setData] = useState<Data | null>(null);
 
+  const dispatch = useDispatch();
+
   const handleAddToCart = () => {
     console.log("Add to cart clicked");
+    dispatch(addProduct({
+      id: data?.id || "",
+      headerImage: data?.headerImage || "",
+      discountPercentage: data?.discountPercentage || 0,
+      couponPrice: data?.couponPrice || 0,
+    }));
   };
 
   useEffect(() => {
     const fetchData = async () => {
       const mockResponse: Data = {
+        id: id || "1",
         headerImage:
           "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
         richDescription: `
@@ -115,6 +131,7 @@ const OnlineProducts: React.FC = () => {
             firstname: "Chris",
           }
         ],
+        couponPrice: 100,
       };
 
       setData(mockResponse);

@@ -8,8 +8,12 @@ import React, { useContext, useEffect } from "react";
 import UserContext from "../context/UserContext";
 import PageHeader from "@/components/OfflinePageComponents/PageHeader";
 import AddressComponent from "@/components/OfflinePageComponents/AddressComponent";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addProduct } from "@/store/products/productsSlice";
 
 interface Data {
+  id: string;
   headerImage: string;
   title: string;
   richDescription: string;
@@ -20,9 +24,11 @@ interface Data {
   expirationDate: string;
   terms: string[];
   reviewData: ReviewData[];
+  couponPrice: number;
 }
 
 interface ReviewData {
+  id: string;
   rating: number;
   reviewTitle: string;
   recommend: string;
@@ -40,13 +46,23 @@ const OfflineProducts: React.FC = () => {
 
   const { kfcReviewData, setKfcReviewData } = context.KfcData;
 
+  const { id } = useParams<{ id: string }>();
+  const dispatch = useDispatch();
+
   const handleAddToCart = () => {
     console.log("Add to cart clicked");
+    dispatch(addProduct({
+      id: data?.id || "",
+      headerImage: data?.headerImage || "",
+      discountPercentage: data?.discountPercentage || 0,
+      couponPrice: data?.couponPrice || 0,
+    }));
   };
 
   useEffect(() => {
     const fetchData = async () => {
       const mockResponse: Data = {
+        id: id || "1",
         headerImage:
           "https://www.pngplay.com/wp-content/uploads/9/KFC-Logo-PNG-Free-File-Download.png",
         title: "Special Chicken Bucket Deal",
@@ -65,6 +81,7 @@ const OfflineProducts: React.FC = () => {
         ],
         reviewData: [
           {
+            id: "1",
             rating: 5,
             reviewTitle: "Amazing Chicken!",
             recommend: "Yes",
@@ -73,6 +90,7 @@ const OfflineProducts: React.FC = () => {
             firstname: "Alice",
           },
           {
+            id: "2",
             rating: 4,
             reviewTitle: "Great Chicken!",
             recommend: "Yes",
@@ -81,14 +99,34 @@ const OfflineProducts: React.FC = () => {
             firstname: "John",
           },
           {
+            id: "3",
             rating: 3,
             reviewTitle: "Good but could be better",
             recommend: "Maybe",
             productReview: "The chicken was good, but the service was slow.",
             reviewDescription: "I had to wait a long time for my order.",
             firstname: "Jane",
+          },
+          {
+            id: "4",
+            rating: 2,
+            reviewTitle: "Not what I expected",
+            recommend: "No",
+            productReview: "The chicken was dry and overcooked.",
+            reviewDescription: "I was disappointed with my meal.",
+            firstname: "Bob",
+          },
+          {
+            id: "5",
+            rating: 1,
+            reviewTitle: "Terrible experience",
+            recommend: "No",
+            productReview: "The chicken was cold and tasted old.",
+            reviewDescription: "I will not be coming back.",
+            firstname: "Charlie",
           }
         ],
+        couponPrice: 40,
       }
 
       setData(mockResponse);
